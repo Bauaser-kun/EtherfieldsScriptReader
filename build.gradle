@@ -4,7 +4,8 @@ plugins {
 }
 
 sourceCompatibility = '17'
-version = "0.0.1"
+version = '0.0.1'
+
 
 repositories {
     mavenCentral()
@@ -18,5 +19,11 @@ dependencies {
 }
 
 application {
-    mainClass = 'scriptreader.ScriptReader'
+    mainClass = 'ScriptReader'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'scriptreader.ScriptReaderRunner'
+    }
 }

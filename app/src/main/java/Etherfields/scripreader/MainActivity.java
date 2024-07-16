@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private RecyclerViewHolder recyclerViewHolder;
     private static final int PERMISSION_REQUEST_CODE = 100;
     private static final int PDF_SELECTION_CODE = 200;
 
@@ -36,7 +39,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = findViewById(R.id.recyclerView);
         pdfView = findViewById(R.id.pdfView);
+
+
         final AssetManager assets = getBaseContext().getAssets();
         listAssetFiles("");
 

@@ -14,22 +14,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-public class RecyclerViewHolder extends RecyclerView.Adapter<RecyclerViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.ViewHolder<RecyclerViewAdapter> {
     private Context mContext;
-    RecyclerViewHolder(Context mContext) {
+    RecyclerViewAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
     @NonNull
     @Override
-    public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.files_list, parent, false);
 
         return new FileLayoutHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter holder, int position) {
         ((FileLayoutHolder)holder).title.setText(Constant.allMediaList.get(position).getName());
         Uri uri = Uri.fromFile(Constant.allMediaList.get(position));
 

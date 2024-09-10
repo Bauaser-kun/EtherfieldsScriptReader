@@ -1,9 +1,13 @@
 package Etherfields.scripreader;
 
+import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +33,27 @@ public class MainActivity extends AppCompatActivity {
     private PDFView pdfView;
     private EditText eventNumberInput;
     private Button openPdfButton;
+    private MediaPlayer.OnCompletionListener mCompletitionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            releaseMediaPlayer();
+        }
+    };
+    private float length;
+    private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
+                mediaPlayer.pause();
+            } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+                mediaPlayer.start();
+            } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+                length = mediaPlayer.getCurrentPosition();
+                Log.d("loss focus", "loss of focus");
+                releaseMediaPlayer();
+            }
+        }
+    };
 
 
     @Override
@@ -69,17 +94,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void runAudioFile(String assetFileName) {
-        try {
-            AssetManager assetManager = getAssets();
+        releaseMediaPlayer(); // Release any existing media player instance
 
-            InputStream inputStream = assetManager.open(assetFileName);
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
+        // Request audio focus
+        int result = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
+                AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error loading audio file", Toast.LENGTH_SHORT).show();
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            try {
+                // Initialize MediaPlayer
+                mediaPlayer = new MediaPlayer();
+
+                // Open the audio file from the assets folder
+                AssetFileDescriptor afd = getAssets().openFd(assetFileName);
+
+                mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                afd.close();
+
+                // Prepare the MediaPlayer asynchronously
+                mediaPlayer.prepare();
+
+                // Set the onCompletion listener to release media player once the audio finishes
+                mediaPlayer.setOnCompletionListener(mCompletitionListener);
+
+                // Start the audio file
+                mediaPlayer.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error playing audio file", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Could not gain audio focus", Toast.LENGTH_SHORT).show();
         }
+    }
 
+
+    private void releaseMediaPlayer() {
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+
+            mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
+        }
     }
 
     private void displayPDF(String assetFileName) {

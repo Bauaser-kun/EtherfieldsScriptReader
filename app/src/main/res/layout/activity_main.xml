@@ -12,14 +12,41 @@
         android:layout_height="match_parent" />
 
     <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/eventNumberInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="wpisz numer skryptu (1-3)"
+            android:inputType="number"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/openPdfButton"
+            android:layout_marginEnd="8dp"
+            android:layout_alignBaseline="@id/openPdfButton"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"/>
+
+        <Button
+            android:id="@+id/openPdfButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Otwórz"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp" />
 
         <com.github.barteksc.pdfviewer.PDFView
             android:id="@+id/pdfView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/openPdfButton"
+            android:layout_marginTop="16dp"/>
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

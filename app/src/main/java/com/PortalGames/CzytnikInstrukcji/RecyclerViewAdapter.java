@@ -1,4 +1,4 @@
-package Etherfields.scripreader;
+package com.PortalGames.CzytnikInstrukcji;
 
 import android.content.Context;
 import android.net.Uri;

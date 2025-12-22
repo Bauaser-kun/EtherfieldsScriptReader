@@ -1,4 +1,4 @@
-package Etherfields.scripreader.ui.theme
+package com.PortalGames.CzytnikInstrukcji.theme
 
 import androidx.compose.ui.graphics.Color
 

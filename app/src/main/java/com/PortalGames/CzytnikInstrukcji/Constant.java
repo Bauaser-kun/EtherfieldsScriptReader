@@ -1,4 +1,4 @@
-package Etherfields.scripreader;
+package com.PortalGames.CzytnikInstrukcji;
 
 import java.io.File;
 import java.util.ArrayList;

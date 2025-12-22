@@ -1,9 +1,8 @@
-package Etherfields.scripreader;
+package com.PortalGames.CzytnikInstrukcji;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
-import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;

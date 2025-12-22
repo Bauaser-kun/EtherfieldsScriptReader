@@ -1,4 +1,4 @@
-package Etherfields.scripreader.ui.theme
+package com.PortalGames.CzytnikInstrukcji.theme
 
 import android.app.Activity
 import android.os.Build

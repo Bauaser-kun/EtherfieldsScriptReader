@@ -8,7 +8,7 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    namespace = "Etherfields.scripreader"
+    namespace = "com.PortalGames.CzytnikInstrukcji"
     compileSdk = 34
 
     signingConfigs {
@@ -21,7 +21,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "Etherfields.scripreader"
+        applicationId = "com.PortalGames.CzytnikInstrukcji"
         minSdk = 24
         targetSdk = 34
         versionCode = 2

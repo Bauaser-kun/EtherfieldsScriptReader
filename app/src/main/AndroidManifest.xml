@@ -10,7 +10,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="Etherfields Scrip Reader"
+        android:label="PortalDEX"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -19,7 +19,7 @@
         tools:ignore="HardcodedDebugMode">
 
         <activity
-            android:name="com.PortalGames.CzytnikInstrukcji.MainActivity"
+            android:name="com.PortalGames.PortalDEX.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ScripReader" >

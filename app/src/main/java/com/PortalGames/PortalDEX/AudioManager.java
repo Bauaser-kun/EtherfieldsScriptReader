@@ -1,2 +1,4 @@
-package com.PortalGames.PortalDEX;public class AudioManager {
+package com.PortalGames.PortalDEX;
+
+public class AudioManager {
 }

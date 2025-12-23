@@ -1,4 +1,4 @@
-package com.PortalGames.CzytnikInstrukcji.theme
+package com.PortalGames.PortalDEX.theme
 
 import android.app.Activity
 import android.os.Build

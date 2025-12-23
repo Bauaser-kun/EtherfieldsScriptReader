@@ -1,2 +1,4 @@
-package com.PortalGames.PortalDEX;public class PDFManager {
+package com.PortalGames.PortalDEX;
+
+public class PDFManager {
 }

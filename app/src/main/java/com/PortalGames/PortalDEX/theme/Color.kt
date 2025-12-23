@@ -1,4 +1,4 @@
-package com.PortalGames.CzytnikInstrukcji.theme
+package com.PortalGames.PortalDEX.theme
 
 import androidx.compose.ui.graphics.Color
 

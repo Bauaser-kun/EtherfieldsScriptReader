@@ -1,4 +1,4 @@
-package com.PortalGames.CzytnikInstrukcji;
+package com.PortalGames.PortalDEX;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;

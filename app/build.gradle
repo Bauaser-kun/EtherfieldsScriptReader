@@ -8,7 +8,7 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    namespace = "com.PortalGames.CzytnikInstrukcji"
+    namespace = "com.PortalGames.PortalDEX"
     compileSdk = 34
 
     signingConfigs {
@@ -21,7 +21,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.PortalGames.CzytnikInstrukcji"
+        applicationId = "com.PortalGames.PortalDEX"
         minSdk = 24
         targetSdk = 34
         versionCode = 2

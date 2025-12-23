@@ -1,4 +1,4 @@
-package com.PortalGames.CzytnikInstrukcji;
+package com.PortalGames.PortalDEX;
 
 import java.io.File;
 import java.util.ArrayList;

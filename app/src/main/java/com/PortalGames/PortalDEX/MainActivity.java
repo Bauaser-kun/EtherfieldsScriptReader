@@ -32,13 +32,17 @@ public class MainActivity extends AppCompatActivity {
     private PDFView pdfView;
     private EditText eventNumberInput;
     private Button openPdfButton;
+    private PDFManager pdfManager;
     private MediaPlayer.OnCompletionListener mCompletitionListener = new MediaPlayer.OnCompletionListener() {
+
         @Override
         public void onCompletion(MediaPlayer mediaPlayer) {
             releaseMediaPlayer();
         }
     };
+
     private float length;
+
     private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {

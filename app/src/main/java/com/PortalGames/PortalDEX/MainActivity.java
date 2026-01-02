@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     int eventNumber = Integer.parseInt(eventNumberStr);
                     displayPDF(eventNumber + ".pdf");
-                    runAudioFile(eventNumber + ".mp3");
+                    //runAudioFile(eventNumber + ".mp3");
                 } catch (NumberFormatException e) {
                     Toast.makeText(MainActivity.this, "Invalid event number", Toast.LENGTH_SHORT).show();
                 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PDFManager {
-    public List<String> getPDFListFromAssets(Context context) {
+    public static List<String> getPDFListFromAssets(Context context) {
         List<String> pdfs = new ArrayList<>();
         AssetManager manager = context.getAssets();
 

@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +66,18 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerViewAdapter = new RecyclerViewAdapter(this);
+        ArrayList<String> pdfList =
+                new ArrayList<>(PDFManager.getPDFListFromAssets(this));
+
+        recyclerViewAdapter = new RecyclerViewAdapter(
+                this,
+                pdfList,
+                pdfName -> {
+                    displayPDF(pdfName);
+                    // runAudioFile(pdfName.replace(".pdf", ".mp3"));
+                }
+        );
+
         recyclerView.setAdapter(recyclerViewAdapter);
 
         pdfView = findViewById(R.id.pdfView);

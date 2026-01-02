@@ -14,11 +14,34 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.FileLayoutHolder> {
     private Context mContext;
     RecyclerViewAdapter(Context mContext) {
         this.mContext = mContext;
     }
+
+
+
+
+    private ArrayList<String> pdfList;
+    private OnPdfClickListener listener;
+
+    public RecyclerViewAdapter(Context context,
+                               ArrayList<String> pdfList,
+                               OnPdfClickListener listener) {
+        this.mContext = context;
+        this.pdfList = pdfList;
+        this.listener = listener;
+    }
+
+    public interface OnPdfClickListener {
+        void onPdfClick(String pdfName);
+    }
+
+
+
     
     @NonNull
     public FileLayoutHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,16 +52,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull FileLayoutHolder holder, int position) {
-        ((FileLayoutHolder)holder).title.setText(Constant.allMediaList.get(position).getName());
-        Uri uri = Uri.fromFile(Constant.allMediaList.get(position));
+        String pdfName = pdfList.get(position);
 
-        Glide.with(mContext)
-                .load(uri).thumbnail(0.1f).into(((FileLayoutHolder)holder).thumbnail);
+        holder.title.setText(pdfName);
+
+        /*Glide.with(mContext)
+                .load(R.drawable.ic_pdf)   // your pdf icon
+                .into(holder.thumbnail);*/
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onPdfClick(pdfName);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return Constant.allMediaList.size();
+        return pdfList.size();
     }
 
     class FileLayoutHolder extends RecyclerView.ViewHolder {

@@ -12,41 +12,50 @@
         android:layout_height="match_parent" />
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="16dp"
+        tools:layout_editor_absoluteX="-39dp"
+        tools:layout_editor_absoluteY="-37dp">
 
         <EditText
             android:id="@+id/eventNumberInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="wpisz numer skryptu (1-7)"
-            android:inputType="number"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@id/openPdfButton"
-            android:layout_marginEnd="8dp"
             android:layout_alignBaseline="@id/openPdfButton"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"/>
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/openPdfButton"
+            android:hint="wpisz numer skryptu (1-7)"
+            android:inputType="number" />
 
         <Button
             android:id="@+id/openPdfButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wyszukaj"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginEnd="16dp"
+            android:text="Wyszukaj" />
+
+        <ListView
+            android:id="@+id/filesList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/openPdfButton"
+            />
 
         <com.github.barteksc.pdfviewer.PDFView
             android:id="@+id/pdfView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/openPdfButton"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

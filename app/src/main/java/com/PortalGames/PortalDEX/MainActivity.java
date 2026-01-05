@@ -175,24 +175,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean listAssetFiles(String path) {
-        ArrayList<String> files = new ArrayList<>();
-        String[] list;
-        try {
-            list = getAssets().list(path);
-            if (list.length > 0) {
-                for (String file : list) {
-                    if (!listAssetFiles(path + "/" + file))
-                        return false;
-                    else {
-                        files.add(file);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            return false;
-        }
-
-        return true;
-    }
 }

@@ -74,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
                 pdfList,
                 pdfName -> {
                     displayPDF(pdfName);
+
+                    recyclerView.setVisibility(View.GONE);
+                    pdfView.setVisibility(View.VISIBLE);
                     // runAudioFile(pdfName.replace(".pdf", ".mp3"));
                 }
         );
@@ -104,6 +107,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (pdfView.getVisibility() == View.VISIBLE) {
+            pdfView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void runAudioFile(String assetFileName) {

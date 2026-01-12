@@ -2,6 +2,12 @@ package com.PortalGames.PortalDEX;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.view.View;
+import android.widget.ImageButton;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,5 +33,11 @@ public class PDFManager {
         }
 
         return pdfs;
+    }
+
+    public void closePdf(PDFView pdfView, ImageButton backButton, RecyclerView recyclerView) {
+        pdfView.setVisibility(View.GONE);
+        backButton.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 }

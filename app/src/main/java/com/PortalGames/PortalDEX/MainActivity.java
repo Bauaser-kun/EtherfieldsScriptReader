@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText eventNumberInput;
     private Button openPdfButton;
     private PDFManager pdfManager;
+    private ImageButton pdfBackButton;
+    private String currentPDF;
+
     private MediaPlayer.OnCompletionListener mCompletitionListener = new MediaPlayer.OnCompletionListener() {
 
         @Override
@@ -63,31 +68,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Find views
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        pdfView = findViewById(R.id.pdfView);
+        pdfBackButton = findViewById(R.id.pdfBackButton);
+        eventNumberInput = findViewById(R.id.eventNumberInput);
+        openPdfButton = findViewById(R.id.openPdfButton);
+
+        //Init helper
+        pdfManager = new PDFManager();
 
         ArrayList<String> pdfList =
                 new ArrayList<>(PDFManager.getPDFListFromAssets(this));
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAdapter = new RecyclerViewAdapter(
                 this,
                 pdfList,
                 pdfName -> {
+                    currentPDF = pdfName;
                     displayPDF(pdfName);
 
                     recyclerView.setVisibility(View.GONE);
                     pdfView.setVisibility(View.VISIBLE);
+                    pdfBackButton.setVisibility(View.VISIBLE);
                     // runAudioFile(pdfName.replace(".pdf", ".mp3"));
                 }
         );
 
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        pdfView = findViewById(R.id.pdfView);
-        eventNumberInput = findViewById(R.id.eventNumberInput);
-        openPdfButton = findViewById(R.id.openPdfButton);
+        pdfBackButton.setOnClickListener(v -> {
+            pdfManager.closePdf(pdfView, pdfBackButton, recyclerView);
+        });
 
-        // Load PDF from assets
         openPdfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,12 +124,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
         if (pdfView.getVisibility() == View.VISIBLE) {
-            pdfView.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-        } else {
-            super.onBackPressed();
+            outState.putBoolean("pdf_open", true);
+            outState.putString("pdf_name", currentPDF);
+            outState.putInt("pdf_page", pdfView.getCurrentPage());
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstance) {
+        super.onRestoreInstanceState(savedInstance);
+
+        if (savedInstance.getBoolean("pdf_open", false)) {
+            String pdfName = savedInstance.getString("pdf_name");
+            int page = savedInstance.getInt("pdf_page", 0);
+
+            if (pdfName != null) {
+                currentPDF = pdfName;
+
+                recyclerView.setVisibility(View.GONE);
+                pdfView.setVisibility(View.VISIBLE);
+                pdfBackButton.setVisibility(View.VISIBLE);
+
+                displayPDF(pdfName);
+                pdfView.jumpTo(page, false);
+            }
         }
     }
 

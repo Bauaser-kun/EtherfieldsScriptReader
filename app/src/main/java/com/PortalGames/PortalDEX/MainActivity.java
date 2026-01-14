@@ -105,19 +105,32 @@ public class MainActivity extends AppCompatActivity {
         openPdfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String eventNumberStr = eventNumberInput.getText().toString();
+                String inputToFind = eventNumberInput.getText().toString().trim();
 
-                if (eventNumberStr.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Please enter an event number", Toast.LENGTH_SHORT).show();
+                if (inputToFind.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please enter an name", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                try {
-                    int eventNumber = Integer.parseInt(eventNumberStr);
-                    displayPDF(eventNumber + ".pdf");
+                String foundPdf = null;
+
+                for (String pdf: pdfList) {
+                    if (pdf.toLowerCase().contains(inputToFind.toLowerCase())) {
+                        foundPdf = pdf;
+                        break;
+                    }
+                }
+
+                if (foundPdf != null) {
+                    currentPDF = foundPdf;
+                    displayPDF(foundPdf);
                     //runAudioFile(eventNumber + ".mp3");
-                } catch (NumberFormatException e) {
-                    Toast.makeText(MainActivity.this, "Invalid event number", Toast.LENGTH_SHORT).show();
+
+                    recyclerView.setVisibility(View.GONE);
+                    pdfView.setVisibility(View.VISIBLE);
+                    pdfBackButton.setVisibility(View.VISIBLE);
+                } else {
+                    Toast.makeText(MainActivity.this, "No matching PDF found", Toast.LENGTH_SHORT).show();
                 }
             }
         });

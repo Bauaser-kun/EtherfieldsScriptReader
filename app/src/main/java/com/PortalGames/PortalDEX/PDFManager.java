@@ -40,4 +40,20 @@ public class PDFManager {
         backButton.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
     }
+
+    public ArrayList<String> filterPdfList(ArrayList<String> pdfList, String query) {
+        ArrayList<String> filteredList = new ArrayList<>();
+
+        if (query.isEmpty()) {
+            filteredList.addAll(pdfList);
+        } else {
+            for (String pdf: pdfList) {
+                if (pdf.toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(pdf);
+                }
+            }
+        }
+
+        return filteredList;
+    }
 }

@@ -6,6 +6,8 @@ import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,11 +34,14 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private AudioManager mAudioManager;
     private PDFView pdfView;
-    private EditText eventNumberInput;
+    private EditText userInputString;
     private Button openPdfButton;
     private PDFManager pdfManager;
     private ImageButton pdfBackButton;
     private String currentPDF;
+    private ArrayList<String> pdfList;
+    private ArrayList<String> filteredList;
+
 
     private MediaPlayer.OnCompletionListener mCompletitionListener = new MediaPlayer.OnCompletionListener() {
 
@@ -72,19 +77,19 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         pdfView = findViewById(R.id.pdfView);
         pdfBackButton = findViewById(R.id.pdfBackButton);
-        eventNumberInput = findViewById(R.id.eventNumberInput);
+        userInputString = findViewById(R.id.rulebookNameInput);
         openPdfButton = findViewById(R.id.openPdfButton);
 
         //Init helper
         pdfManager = new PDFManager();
 
-        ArrayList<String> pdfList =
-                new ArrayList<>(PDFManager.getPDFListFromAssets(this));
+        pdfList = new ArrayList<>(PDFManager.getPDFListFromAssets(this));
+        filteredList = new ArrayList<>(pdfList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAdapter = new RecyclerViewAdapter(
                 this,
-                pdfList,
+                filteredList,
                 pdfName -> {
                     currentPDF = pdfName;
                     displayPDF(pdfName);
@@ -102,10 +107,30 @@ public class MainActivity extends AppCompatActivity {
             pdfManager.closePdf(pdfView, pdfBackButton, recyclerView);
         });
 
+        userInputString.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filteredList.clear();
+                filteredList.addAll(pdfManager.filterPdfList(pdfList, s.toString()));
+
+                recyclerViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         openPdfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String inputToFind = eventNumberInput.getText().toString().trim();
+                String inputToFind = userInputString.getText().toString().trim();
 
                 if (inputToFind.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please enter an name", Toast.LENGTH_SHORT).show();

@@ -1,4 +1,6 @@
 PortalDEX changelog
+V 0.6.0
+- dynamic filter implemented
 
 V 0.5.5
 - removed numbers as identifiers from guidebooks

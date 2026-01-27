@@ -22,11 +22,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
 
-    private ArrayList<String> pdfList;
+    private ArrayList<PdfListItem> pdfList;
     private OnPdfClickListener listener;
 
     public RecyclerViewAdapter(Context context,
-                               ArrayList<String> pdfList,
+                               ArrayList<PdfListItem> pdfList,
                                OnPdfClickListener listener) {
         this.mContext = context;
         this.pdfList = pdfList;
@@ -49,7 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull FileLayoutHolder holder, int position) {
-        String pdfName = pdfList.get(position);
+        String pdfName = pdfList.get(position).getName();
 
         holder.title.setText(pdfName);
 

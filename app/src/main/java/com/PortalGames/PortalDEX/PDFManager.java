@@ -2,6 +2,7 @@ package com.PortalGames.PortalDEX;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -24,8 +25,8 @@ public class PDFManager {
         this.context = context.getApplicationContext();
     }
 
-    public static List<String> getPDFListFromAssets(Context context) {
-        List<String> pdfs = new ArrayList<>();
+    public static List<PdfListItem> getPDFListFromAssets(Context context) {
+        List<PdfListItem> pdfs = new ArrayList<>();
         AssetManager manager = context.getAssets();
 
         try {
@@ -33,7 +34,7 @@ public class PDFManager {
             if (fileNames != null) {
                 for (String file: fileNames) {
                     if (file.toLowerCase().endsWith(".pdf")) {
-                        pdfs.add(file);
+                        pdfs.add(new PdfListItem(file, new MediaStore.Images.Media()));
                     }
                 }
             }
@@ -51,14 +52,14 @@ public class PDFManager {
         recyclerView.setVisibility(View.VISIBLE);
     }
 
-    public ArrayList<String> filterPdfList(ArrayList<String> pdfList, String query) {
-        ArrayList<String> filteredList = new ArrayList<>();
+    public ArrayList<PdfListItem> filterPdfList(ArrayList<PdfListItem> pdfList, String query) {
+        ArrayList<PdfListItem> filteredList = new ArrayList<>();
 
         if (query.isEmpty()) {
             filteredList.addAll(pdfList);
         } else {
-            for (String pdf: pdfList) {
-                if (pdf.toLowerCase().contains(query.toLowerCase())) {
+            for (PdfListItem pdf: pdfList) {
+                if (pdf.getName().toLowerCase().contains(query.toLowerCase())) {
                     filteredList.add(pdf);
                 }
             }

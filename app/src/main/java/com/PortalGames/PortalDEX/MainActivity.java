@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private PDFManager pdfManager;
     private ImageButton pdfBackButton;
     private String currentPDF;
-    private ArrayList<String> pdfList;
-    private ArrayList<String> filteredList;
+    private ArrayList<PdfListItem> pdfList;
+    private ArrayList<PdfListItem> filteredList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
 
                 String foundPdf = null;
 
-                for (String pdf: pdfList) {
-                    if (pdf.toLowerCase().contains(inputToFind.toLowerCase())) {
-                        foundPdf = pdf;
+                for (PdfListItem pdf: pdfList) {
+                    if (pdf.getName().toLowerCase().contains(inputToFind.toLowerCase())) {
+                        foundPdf = pdf.getName();
                         break;
                     }
                 }

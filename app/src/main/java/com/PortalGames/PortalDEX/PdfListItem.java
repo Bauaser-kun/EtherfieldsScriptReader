@@ -1,21 +1,19 @@
 package com.PortalGames.PortalDEX;
 
-import android.provider.MediaStore;
-
 public class PdfListItem {
-    String name;
-    MediaStore.Images.Media image = new MediaStore.Images.Media();
+    private String name;
+    private int iconId ;
 
-    public PdfListItem (String name, MediaStore.Images.Media image){
+    public PdfListItem (String name, int iconId){
         this.name = name;
-        this.image = image;
+        this.iconId = iconId;
     }
 
     public String getName(){
         return name;
     }
 
-    public MediaStore.Images.Media getImage() {
-        return image;
+    public int getIconId() {
+        return iconId;
     }
 }

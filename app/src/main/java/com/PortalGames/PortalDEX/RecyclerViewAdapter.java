@@ -19,9 +19,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mContext = mContext;
     }
 
-
-
-
     private ArrayList<PdfListItem> pdfList;
     private OnPdfClickListener listener;
 
@@ -36,9 +33,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public interface OnPdfClickListener {
         void onPdfClick(String pdfName);
     }
-
-
-
     
     @NonNull
     public FileLayoutHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -49,9 +43,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull FileLayoutHolder holder, int position) {
-        String pdfName = pdfList.get(position).getName();
+        PdfListItem item = pdfList.get(position);
 
-        holder.title.setText(pdfName);
+        holder.fileNameText.setText(item.getName());
+        holder.icon.setImageResource(item.getIconId());
 
         /*Glide.with(mContext)
                 .load(R.drawable.ic_pdf)   // your pdf icon
@@ -59,7 +54,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onPdfClick(pdfName);
+                listener.onPdfClick(item.getName());
             }
         });
     }
@@ -70,17 +65,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     class FileLayoutHolder extends RecyclerView.ViewHolder {
+        ImageView icon;
+        TextView fileNameText;
+        ImageButton moreButton;
 
-        ImageView thumbnail;
-        TextView title;
-        ImageButton ic_more_btn;
-
-        public FileLayoutHolder (@NonNull View itemView) {
+        FileLayoutHolder(View itemView) {
             super(itemView);
-
-            thumbnail = itemView.findViewById(R.id.thumbnail);
-            title = itemView.findViewById(R.id.title);
-            ic_more_btn = itemView.findViewById(R.id.ic_more_btn);
+            icon = itemView.findViewById(R.id.icon);
+            fileNameText = itemView.findViewById(R.id.fileNameText);
+            moreButton = itemView.findViewById(R.id.ic_more_btn);
         }
     }
 }

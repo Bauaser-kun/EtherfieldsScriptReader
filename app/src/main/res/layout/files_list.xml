@@ -5,18 +5,20 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="12dp"
+    android:gravity="center_vertical"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground">
 
     <ImageView
-        android:id="@+id/thumbnail"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/ic_pdf"
+        android:id="@+id/icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_pdflistitem_placeholder_icon"
+        android:contentDescription="@string/pdf_icon"
         android:layout_marginEnd="12dp"/>
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/fileNameText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -31,5 +33,4 @@
         android:background="@null"
         android:clickable="false"
         android:focusable="false"/>
-
 </LinearLayout>

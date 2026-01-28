@@ -2,7 +2,6 @@ package com.PortalGames.PortalDEX;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -34,7 +33,7 @@ public class PDFManager {
             if (fileNames != null) {
                 for (String file: fileNames) {
                     if (file.toLowerCase().endsWith(".pdf")) {
-                        pdfs.add(new PdfListItem(file, new MediaStore.Images.Media()));
+                        pdfs.add(new PdfListItem(file, R.drawable.ic_pdflistitem_placeholder_icon));
                     }
                 }
             }

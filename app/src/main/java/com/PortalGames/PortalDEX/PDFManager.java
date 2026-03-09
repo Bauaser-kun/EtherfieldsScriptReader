@@ -12,6 +12,9 @@ import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -24,6 +27,41 @@ public class PDFManager {
         this.context = context.getApplicationContext();
     }
 
+    public static ArrayList<PdfListItem> loadGuidesFromJson(Context context) {
+        ArrayList<PdfListItem> pdfListItems = new ArrayList<>();
+
+        try {
+            InputStream stream = context.getAssets().open("guides.json");
+
+            int size = stream.available();
+            byte[] buffer = new byte[size];
+            stream.read(buffer);
+            stream.close();
+
+            String jsonString = new String(buffer, "UTF-8");
+
+            JSONObject root = new JSONObject(jsonString);
+            JSONArray guides = root.getJSONArray("guides");
+
+            for (int i = 0; i < guides.length(); i++) {
+                JSONObject object = guides.getJSONObject(i);
+
+                String name = object.getString("name");
+                String iconName = object.getString("icon");
+                String url = object.getString("url");
+
+                int identifier = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
+
+                pdfListItems.add(new PdfListItem(name, identifier, url));
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return pdfListItems;
+    }
+
     public static List<PdfListItem> getPDFListFromAssets(Context context) {
         List<PdfListItem> pdfs = new ArrayList<>();
         AssetManager manager = context.getAssets();
@@ -33,7 +71,7 @@ public class PDFManager {
             if (fileNames != null) {
                 for (String file: fileNames) {
                     if (file.toLowerCase().endsWith(".pdf")) {
-                        pdfs.add(new PdfListItem(file, R.drawable.ic_pdflistitem_placeholder_icon));
+                        pdfs.add(new PdfListItem(file, R.drawable.ic_pdflistitem_placeholder_icon, ""));
                     }
                 }
             }

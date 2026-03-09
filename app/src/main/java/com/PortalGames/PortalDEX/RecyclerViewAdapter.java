@@ -54,7 +54,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onPdfClick(item.getName());
+                listener.onPdfClick(item.getName() + ".pdf");
             }
         });
     }

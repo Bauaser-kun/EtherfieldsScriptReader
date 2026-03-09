@@ -1,0 +1,34 @@
+
+{
+  "guides" : [
+    {
+      "name" : "Bloodborne PL",
+      "icon" : "ic_pdflistitem_placeholder_icon",
+      "url" : ""
+    }, {
+      "name" : "bohemians PL",
+      "icon" : "ic_pdflistitem_placeholder_icon",
+      "url" : ""
+    },  {
+      "name" : "DUNE - WOJNA O ARRAKIS - PL",
+      "icon" : "ic_pdflistitem_placeholder_icon",
+      "url" : ""
+    }, {
+      "name" : "MARVEL ZOMBIES PL",
+      "icon" : "new_test_icon",
+      "url" : ""
+    }, {
+      "name" : "NEUROSHIMA HEX PL",
+      "icon" : "ic_pdflistitem_placeholder_icon",
+      "url" : ""
+    }, {
+      "name" : "Too Many Bones (TMB)",
+      "icon" : "ic_pdflistitem_placeholder_icon",
+      "url" : ""
+    }, {
+      "name" : "ZOMBIECIDE 2. EDYCJA PL",
+      "icon" : "new_test_icon",
+      "url" : ""
+    }
+  ]
+}

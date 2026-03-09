@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.barteksc.pdfviewer.PDFView;
 
 import java.util.ArrayList;
-
+// Audio helpers to be confirmed if needed until final confirmation neither remove or uncomment lines related to audio files managements
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         pdfManager = new PDFManager(this);
         //audioManager = new com.PortalGames.PortalDEX.AudioManager(this);
 
-        pdfList = new ArrayList<>(PDFManager.getPDFListFromAssets(this));
+        pdfList = new ArrayList<>(PDFManager.loadGuidesFromJson(this));
+        //pdfList = new ArrayList<>(PDFManager.getPDFListFromAssets(this));
         filteredList = new ArrayList<>(pdfList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

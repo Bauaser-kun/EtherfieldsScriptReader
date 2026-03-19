@@ -31,7 +31,7 @@ public class PDFManager {
         ArrayList<PdfListItem> pdfListItems = new ArrayList<>();
 
         try {
-            InputStream stream = context.getAssets().open("guides.json");
+            InputStream stream = context.getAssets().open("dataMapping.json");
 
             int size = stream.available();
             byte[] buffer = new byte[size];

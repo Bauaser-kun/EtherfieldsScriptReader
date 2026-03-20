@@ -1,16 +1,16 @@
 package com.PortalGames.PortalDEX;
 
-import android.graphics.drawable.Drawable;
-
 public class PdfListItem {
     private String name;
     private int iconId ;
     private String url;
+    private boolean isDownloaded;
 
-    public PdfListItem (String name, int iconId, String url){
+    public PdfListItem (String name, int iconId, String url, boolean isDownloaded){
         this.name = name;
         this.iconId = iconId;
         this.url = url;
+        this.isDownloaded = isDownloaded;
     }
 
     public String getName(){
@@ -23,5 +23,13 @@ public class PdfListItem {
 
     public String getUrl() {
         return url;
+    }
+
+    public boolean isDownloaded() {
+        return isDownloaded;
+    }
+
+    public void setDownloaded(boolean downloaded) {
+        isDownloaded = downloaded;
     }
 }

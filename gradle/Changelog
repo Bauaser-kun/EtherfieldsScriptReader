@@ -1,4 +1,8 @@
 PortalDEX changelog
+V 0.6.5
+- fixed issue with list
+- added json configaration for guide-icon-url. All properties are now applied dynamicaly from it
+
 V 0.6.4
 - added placeholder icon to list
 

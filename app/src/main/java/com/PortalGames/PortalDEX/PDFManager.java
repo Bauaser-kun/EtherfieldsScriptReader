@@ -23,12 +23,30 @@ import java.util.List;
 public class PDFManager {
     private final Context context;
 
+    public  boolean assetFileExists(String fileName) {
+        try {
+            String[] files = context.getAssets().list("");
+            if (files != null) {
+                for (String file : files) {
+                    if (file.equals(fileName)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public PDFManager (Context context) {
         this.context = context.getApplicationContext();
     }
 
     public static ArrayList<PdfListItem> loadGuidesFromJson(Context context) {
         ArrayList<PdfListItem> pdfListItems = new ArrayList<>();
+        AssetManager manager = context.getAssets();
+        PDFManager instance = new PDFManager(context);
 
         try {
             InputStream stream = context.getAssets().open("dataMapping.json");
@@ -49,10 +67,11 @@ public class PDFManager {
                 String name = object.getString("name");
                 String iconName = object.getString("icon");
                 String url = object.getString("url");
+                boolean isDownloaded = instance.assetFileExists(name + ".pdf");
 
                 int identifier = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
 
-                pdfListItems.add(new PdfListItem(name, identifier, url));
+                pdfListItems.add(new PdfListItem(name, identifier, url, isDownloaded));
             }
 
         } catch (Exception e){
@@ -71,7 +90,7 @@ public class PDFManager {
             if (fileNames != null) {
                 for (String file: fileNames) {
                     if (file.toLowerCase().endsWith(".pdf")) {
-                        pdfs.add(new PdfListItem(file, R.drawable.ic_pdflistitem_placeholder_icon, ""));
+                        pdfs.add(new PdfListItem(file, R.drawable.ic_pdflistitem_placeholder_icon, "", true));
                     }
                 }
             }

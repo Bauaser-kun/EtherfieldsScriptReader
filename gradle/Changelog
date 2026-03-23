@@ -1,4 +1,7 @@
 PortalDEX changelog
+V 0.6.6
+- Added download button that changes into checkmark if guide is downloaded
+
 V 0.6.5
 - fixed issue with list
 - added json configaration for guide-icon-url. All properties are now applied dynamicaly from it

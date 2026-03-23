@@ -48,9 +48,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.fileNameText.setText(item.getName());
         holder.icon.setImageResource(item.getIconId());
 
-        /*Glide.with(mContext)
-                .load(R.drawable.ic_pdf)   // your pdf icon
-                .into(holder.thumbnail);*/
+        if (item.isDownloaded()) {
+            holder.downloadButton.setVisibility(View.GONE);
+            holder.downloadedButton.setVisibility(View.VISIBLE);
+        } else {
+            holder.downloadButton.setVisibility(View.VISIBLE);
+            holder.downloadedButton.setVisibility(View.GONE);
+        }
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
@@ -67,13 +71,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     class FileLayoutHolder extends RecyclerView.ViewHolder {
         ImageView icon;
         TextView fileNameText;
-        ImageButton moreButton;
+        ImageButton downloadButton;
+        ImageView downloadedButton;
 
         FileLayoutHolder(View itemView) {
             super(itemView);
             icon = itemView.findViewById(R.id.icon);
             fileNameText = itemView.findViewById(R.id.fileNameText);
-            moreButton = itemView.findViewById(R.id.ic_more_btn);
+            downloadButton = itemView.findViewById(R.id.ic_more_btn);
+            downloadedButton = itemView.findViewById(R.id.downloaded);
         }
     }
 }
